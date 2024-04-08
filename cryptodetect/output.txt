@@ -1,0 +1,443 @@
+dex2jar /home/drew/sootup_example/app.apk -> ./tmp/app.jar
+SLF4J: No SLF4J providers were found.
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See https://www.slf4j.org/codes.html#noProviders for further details.
+eecs.mobilesecurity.R$style
+	<eecs.mobilesecurity.R$style: void <init>()>
+		l0 := @this: eecs.mobilesecurity.R$style
+		specialinvoke l0.<java.lang.Object: void <init>()>()
+		return
+eecs.mobilesecurity.R
+	<eecs.mobilesecurity.R: void <init>()>
+		l0 := @this: eecs.mobilesecurity.R
+		specialinvoke l0.<java.lang.Object: void <init>()>()
+		return
+eecs.mobilesecurity.R$string
+	<eecs.mobilesecurity.R$string: void <init>()>
+		l0 := @this: eecs.mobilesecurity.R$string
+		specialinvoke l0.<java.lang.Object: void <init>()>()
+		return
+eecs.mobilesecurity.AESUtil
+	<eecs.mobilesecurity.AESUtil: javax.crypto.spec.SecretKeySpec setKey(java.lang.String)>
+		l0 := @parameter0: java.lang.String
+		l0 = virtualinvoke l0.<java.lang.String: byte[] getBytes(java.lang.String)>("UTF-8")
+		$stack1 = staticinvoke <java.security.MessageDigest: java.security.MessageDigest getInstance(java.lang.String)>("SHA-1")
+		$stack2 = virtualinvoke $stack1.<java.security.MessageDigest: byte[] digest(byte[])>(l0)
+		l0 = staticinvoke <java.util.Arrays: byte[] copyOf(byte[],int)>($stack2, 16)
+		$stack3 = <eecs.mobilesecurity.MainActivity: java.lang.String TAG>
+		staticinvoke <android.util.Log: int e(java.lang.String,java.lang.String)>($stack3, "Create key spec")
+		$stack5 = new javax.crypto.spec.SecretKeySpec
+		$stack4 = <eecs.mobilesecurity.AESUtil: java.lang.String AES_ALGORITHM>
+		specialinvoke $stack5.<javax.crypto.spec.SecretKeySpec: void <init>(byte[],java.lang.String)>(l0, $stack4)
+		return $stack5
+	<eecs.mobilesecurity.AESUtil: void <clinit>()>
+		<eecs.mobilesecurity.AESUtil: java.lang.String AES_ALGORITHM> = "AES"
+		<eecs.mobilesecurity.AESUtil: java.lang.String AES_TRANSFORMATION> = "AES/ECB/PKCS5Padding"
+		return
+	<eecs.mobilesecurity.AESUtil: void <init>()>
+		l0 := @this: eecs.mobilesecurity.AESUtil
+		specialinvoke l0.<java.lang.Object: void <init>()>()
+		return
+	<eecs.mobilesecurity.AESUtil: byte[] encrypt(java.lang.String,java.lang.String)>
+		l0 := @parameter0: java.lang.String
+		l1 := @parameter1: java.lang.String
+		l2 = staticinvoke <eecs.mobilesecurity.AESUtil: javax.crypto.spec.SecretKeySpec setKey(java.lang.String)>(l1)
+		$stack3 = <eecs.mobilesecurity.AESUtil: java.lang.String AES_TRANSFORMATION>
+		l1 = staticinvoke <javax.crypto.Cipher: javax.crypto.Cipher getInstance(java.lang.String)>($stack3)
+		virtualinvoke l1.<javax.crypto.Cipher: void init(int,java.security.Key)>(1, l2)
+		$stack4 = virtualinvoke l0.<java.lang.String: byte[] getBytes()>()
+		l0 = virtualinvoke l1.<javax.crypto.Cipher: byte[] doFinal(byte[])>($stack4)
+		return l0
+		$stack5 := @caughtexception
+		l0 = $stack5
+		$stack6 = new java.lang.StringBuilder
+		specialinvoke $stack6.<java.lang.StringBuilder: void <init>()>()
+		$stack8 = virtualinvoke $stack6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Error while encrypting: ")
+		$stack7 = virtualinvoke l0.<java.lang.Exception: java.lang.String toString()>()
+		$stack9 = virtualinvoke $stack8.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack7)
+		$stack10 = virtualinvoke $stack9.<java.lang.StringBuilder: java.lang.String toString()>()
+		staticinvoke <android.util.Log: int e(java.lang.String,java.lang.String)>("AESUtil", $stack10)
+		return null
+	<eecs.mobilesecurity.AESUtil: boolean reencryptionTest(int)>
+		l0 := @parameter0: int
+		l2 = ""
+		l1 = 0
+		if l1 >= l0
+		$stack16 = new java.lang.StringBuilder
+		specialinvoke $stack16.<java.lang.StringBuilder: void <init>()>()
+		$stack17 = virtualinvoke $stack16.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(l2)
+		$stack18 = virtualinvoke $stack17.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("a")
+		l2 = virtualinvoke $stack18.<java.lang.StringBuilder: java.lang.String toString()>()
+		l1 = l1 + 1
+		goto
+		$stack4 = new java.lang.StringBuilder
+		specialinvoke $stack4.<java.lang.StringBuilder: void <init>()>()
+		$stack5 = virtualinvoke $stack4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" ORIG: ")
+		$stack6 = virtualinvoke $stack5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(l2)
+		$stack7 = virtualinvoke $stack6.<java.lang.StringBuilder: java.lang.String toString()>()
+		staticinvoke <android.util.Log: int e(java.lang.String,java.lang.String)>("AESUtil", $stack7)
+		$stack10 = new java.lang.String
+		$stack8 = staticinvoke <eecs.mobilesecurity.AESUtil: byte[] encrypt(java.lang.String,java.lang.String)>(l2, "KEY")
+		$stack9 = staticinvoke <eecs.mobilesecurity.AESUtil: byte[] decrypt(byte[],java.lang.String)>($stack8, "KEY")
+		specialinvoke $stack10.<java.lang.String: void <init>(byte[])>($stack9)
+		l3 = $stack10
+		$stack11 = new java.lang.StringBuilder
+		specialinvoke $stack11.<java.lang.StringBuilder: void <init>()>()
+		$stack12 = virtualinvoke $stack11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("XFORM: ")
+		$stack13 = virtualinvoke $stack12.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(l3)
+		$stack14 = virtualinvoke $stack13.<java.lang.StringBuilder: java.lang.String toString()>()
+		staticinvoke <android.util.Log: int e(java.lang.String,java.lang.String)>("AESUtil", $stack14)
+		$stack15 = virtualinvoke l3.<java.lang.String: boolean equals(java.lang.Object)>(l2)
+		if $stack15 != 0
+		return 0
+		return 1
+	<eecs.mobilesecurity.AESUtil: byte[] decrypt(byte[],java.lang.String)>
+		l0 := @parameter0: byte[]
+		l1 := @parameter1: java.lang.String
+		l2 = staticinvoke <eecs.mobilesecurity.AESUtil: javax.crypto.spec.SecretKeySpec setKey(java.lang.String)>(l1)
+		$stack3 = <eecs.mobilesecurity.AESUtil: java.lang.String AES_TRANSFORMATION>
+		l1 = staticinvoke <javax.crypto.Cipher: javax.crypto.Cipher getInstance(java.lang.String)>($stack3)
+		virtualinvoke l1.<javax.crypto.Cipher: void init(int,java.security.Key)>(2, l2)
+		l0 = virtualinvoke l1.<javax.crypto.Cipher: byte[] doFinal(byte[])>(l0)
+		return l0
+		$stack4 := @caughtexception
+		l0 = $stack4
+		$stack5 = new java.lang.StringBuilder
+		specialinvoke $stack5.<java.lang.StringBuilder: void <init>()>()
+		$stack7 = virtualinvoke $stack5.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Error while decrypting: ")
+		$stack6 = virtualinvoke l0.<java.lang.Exception: java.lang.String toString()>()
+		$stack8 = virtualinvoke $stack7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack6)
+		$stack9 = virtualinvoke $stack8.<java.lang.StringBuilder: java.lang.String toString()>()
+		staticinvoke <android.util.Log: int e(java.lang.String,java.lang.String)>("AESUtil", $stack9)
+		return null
+eecs.mobilesecurity.Actor
+	<eecs.mobilesecurity.Actor: void act()>
+Could not print body of <eecs.mobilesecurity.Actor: void act()>, sootup.core.frontend.ResolveException: There is no corresponding body if the method is not concrete i.e.<eecs.mobilesecurity.Actor: void act()> is abstract or native. file://home/drew/sootup_example NoPositionInformation
+eecs.mobilesecurity.R$xml
+	<eecs.mobilesecurity.R$xml: void <init>()>
+		l0 := @this: eecs.mobilesecurity.R$xml
+		specialinvoke l0.<java.lang.Object: void <init>()>()
+		return
+eecs.mobilesecurity.FileUtil
+	<eecs.mobilesecurity.FileUtil: void decryptFile(java.io.File,java.lang.String,java.lang.String)>
+		l0 := @parameter0: java.io.File
+		l1 := @parameter1: java.lang.String
+		l2 := @parameter2: java.lang.String
+		if l2 != null
+		l4 = staticinvoke <eecs.mobilesecurity.FileUtil: java.io.File makeTmp()>()
+		goto
+		$stack7 = new java.io.File
+		specialinvoke $stack7.<java.io.File: void <init>(java.lang.String)>(l2)
+		l4 = $stack7
+		l1 = staticinvoke <eecs.mobilesecurity.AESUtil: javax.crypto.spec.SecretKeySpec setKey(java.lang.String)>(l1)
+		$stack8 = <eecs.mobilesecurity.AESUtil: java.lang.String AES_TRANSFORMATION>
+		l5 = staticinvoke <javax.crypto.Cipher: javax.crypto.Cipher getInstance(java.lang.String)>($stack8)
+		virtualinvoke l5.<javax.crypto.Cipher: void init(int,java.security.Key)>(2, l1)
+		$stack10 = new javax.crypto.CipherInputStream
+		$stack9 = new java.io.FileInputStream
+		specialinvoke $stack9.<java.io.FileInputStream: void <init>(java.io.File)>(l0)
+		specialinvoke $stack10.<javax.crypto.CipherInputStream: void <init>(java.io.InputStream,javax.crypto.Cipher)>($stack9, l5)
+		l6 = $stack10
+		$stack11 = new java.io.FileOutputStream
+		specialinvoke $stack11.<java.io.FileOutputStream: void <init>(java.io.File)>(l4)
+		l1 = $stack11
+		l5 = newarray (byte)[1024]
+		l3 = virtualinvoke l6.<javax.crypto.CipherInputStream: int read(byte[])>(l5)
+		if l3 <= 0
+		$stack13 = <eecs.mobilesecurity.MainActivity: java.lang.String TAG>
+		$stack12 = new java.lang.StringBuilder
+		specialinvoke $stack12.<java.lang.StringBuilder: void <init>()>()
+		$stack14 = virtualinvoke $stack12.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("About to decrypt ")
+		$stack15 = virtualinvoke $stack14.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>(l3)
+		$stack17 = virtualinvoke $stack15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" bytes of ")
+		$stack16 = virtualinvoke l0.<java.io.File: java.lang.String getName()>()
+		$stack18 = virtualinvoke $stack17.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack16)
+		$stack19 = virtualinvoke $stack18.<java.lang.StringBuilder: java.lang.String toString()>()
+		staticinvoke <android.util.Log: int e(java.lang.String,java.lang.String)>($stack13, $stack19)
+		virtualinvoke l1.<java.io.FileOutputStream: void write(byte[],int,int)>(l5, 0, l3)
+		goto
+		virtualinvoke l1.<java.io.FileOutputStream: void close()>()
+		if l2 != null
+		if l4 == null
+		virtualinvoke l4.<java.io.File: boolean renameTo(java.io.File)>(l0)
+		return
+	<eecs.mobilesecurity.FileUtil: void encryptFile(java.io.File,java.lang.String)>
+		l0 := @parameter0: java.io.File
+		l1 := @parameter1: java.lang.String
+		staticinvoke <eecs.mobilesecurity.FileUtil: void encryptFile(java.io.File,java.lang.String,java.lang.String)>(l0, l1, null)
+		return
+	<eecs.mobilesecurity.FileUtil: java.io.File makeTmp()>
+		$stack2 = <android.os.Environment: java.lang.String DIRECTORY_DOWNLOADS>
+		l1 = staticinvoke <android.os.Environment: java.io.File getExternalStoragePublicDirectory(java.lang.String)>($stack2)
+		$stack12 = new java.io.File
+		$stack3 = new java.lang.StringBuilder
+		specialinvoke $stack3.<java.lang.StringBuilder: void <init>()>()
+		$stack4 = virtualinvoke l1.<java.io.File: java.io.File getAbsoluteFile()>()
+		$stack5 = virtualinvoke $stack4.<java.io.File: java.lang.String toString()>()
+		$stack6 = virtualinvoke $stack3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack5)
+		$stack9 = virtualinvoke $stack6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("/")
+		$stack7 = staticinvoke <java.util.UUID: java.util.UUID randomUUID()>()
+		$stack8 = virtualinvoke $stack7.<java.util.UUID: java.lang.String toString()>()
+		$stack10 = virtualinvoke $stack9.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack8)
+		$stack11 = virtualinvoke $stack10.<java.lang.StringBuilder: java.lang.String toString()>()
+		specialinvoke $stack12.<java.io.File: void <init>(java.lang.String)>($stack11)
+		l0 = $stack12
+		$stack13 = virtualinvoke l0.<java.io.File: boolean exists()>()
+		if $stack13 != 0
+		return l0
+		$stack14 = <eecs.mobilesecurity.MainActivity: java.lang.String TAG>
+		staticinvoke <android.util.Log: int e(java.lang.String,java.lang.String)>($stack14, "Temp filename already exists!")
+		goto
+	<eecs.mobilesecurity.FileUtil: void decryptFile(java.io.File,java.lang.String)>
+		l0 := @parameter0: java.io.File
+		l1 := @parameter1: java.lang.String
+		staticinvoke <eecs.mobilesecurity.FileUtil: void decryptFile(java.io.File,java.lang.String,java.lang.String)>(l0, l1, null)
+		return
+	<eecs.mobilesecurity.FileUtil: void encryptFile(java.io.File,java.lang.String,java.lang.String)>
+		l0 := @parameter0: java.io.File
+		l1 := @parameter1: java.lang.String
+		l2 := @parameter2: java.lang.String
+		if l2 != null
+		l4 = staticinvoke <eecs.mobilesecurity.FileUtil: java.io.File makeTmp()>()
+		goto
+		$stack7 = new java.io.File
+		specialinvoke $stack7.<java.io.File: void <init>(java.lang.String)>(l2)
+		l4 = $stack7
+		l1 = staticinvoke <eecs.mobilesecurity.AESUtil: javax.crypto.spec.SecretKeySpec setKey(java.lang.String)>(l1)
+		$stack8 = <eecs.mobilesecurity.AESUtil: java.lang.String AES_TRANSFORMATION>
+		l5 = staticinvoke <javax.crypto.Cipher: javax.crypto.Cipher getInstance(java.lang.String)>($stack8)
+		virtualinvoke l5.<javax.crypto.Cipher: void init(int,java.security.Key)>(1, l1)
+		$stack9 = new java.io.FileInputStream
+		specialinvoke $stack9.<java.io.FileInputStream: void <init>(java.io.File)>(l0)
+		l1 = $stack9
+		$stack11 = new javax.crypto.CipherOutputStream
+		$stack10 = new java.io.FileOutputStream
+		specialinvoke $stack10.<java.io.FileOutputStream: void <init>(java.io.File)>(l4)
+		specialinvoke $stack11.<javax.crypto.CipherOutputStream: void <init>(java.io.OutputStream,javax.crypto.Cipher)>($stack10, l5)
+		l6 = $stack11
+		l5 = newarray (byte)[1024]
+		l3 = virtualinvoke l1.<java.io.FileInputStream: int read(byte[])>(l5)
+		if l3 <= 0
+		$stack13 = <eecs.mobilesecurity.MainActivity: java.lang.String TAG>
+		$stack12 = new java.lang.StringBuilder
+		specialinvoke $stack12.<java.lang.StringBuilder: void <init>()>()
+		$stack14 = virtualinvoke $stack12.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("About to write ")
+		$stack15 = virtualinvoke $stack14.<java.lang.StringBuilder: java.lang.StringBuilder append(int)>(l3)
+		$stack17 = virtualinvoke $stack15.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" bytes of ")
+		$stack16 = virtualinvoke l0.<java.io.File: java.lang.String getName()>()
+		$stack18 = virtualinvoke $stack17.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack16)
+		$stack19 = virtualinvoke $stack18.<java.lang.StringBuilder: java.lang.String toString()>()
+		staticinvoke <android.util.Log: int e(java.lang.String,java.lang.String)>($stack13, $stack19)
+		virtualinvoke l6.<javax.crypto.CipherOutputStream: void write(byte[],int,int)>(l5, 0, l3)
+		goto
+		virtualinvoke l6.<javax.crypto.CipherOutputStream: void close()>()
+		if l2 != null
+		if l4 == null
+		virtualinvoke l4.<java.io.File: boolean renameTo(java.io.File)>(l0)
+		return
+	<eecs.mobilesecurity.FileUtil: void <init>()>
+		l0 := @this: eecs.mobilesecurity.FileUtil
+		specialinvoke l0.<java.lang.Object: void <init>()>()
+		return
+eecs.mobilesecurity.R$layout
+	<eecs.mobilesecurity.R$layout: void <init>()>
+		l0 := @this: eecs.mobilesecurity.R$layout
+		specialinvoke l0.<java.lang.Object: void <init>()>()
+		return
+eecs.mobilesecurity.R$id
+	<eecs.mobilesecurity.R$id: void <init>()>
+		l0 := @this: eecs.mobilesecurity.R$id
+		specialinvoke l0.<java.lang.Object: void <init>()>()
+		return
+eecs.mobilesecurity.StringEncryptorActor
+	<eecs.mobilesecurity.StringEncryptorActor: void act()>
+		l0 := @this: eecs.mobilesecurity.StringEncryptorActor
+		$stack3 = staticinvoke <eecs.mobilesecurity.AESUtil: boolean reencryptionTest(int)>(10)
+		if $stack3 == 0
+		$stack5 = staticinvoke <eecs.mobilesecurity.AESUtil: boolean reencryptionTest(int)>(7000)
+		if $stack5 == 0
+		l1 = "Passed tests!"
+		goto
+		$stack6 := @caughtexception
+		l1 = $stack6
+		$stack7 = <eecs.mobilesecurity.MainActivity: java.lang.String TAG>
+		staticinvoke <android.util.Log: int e(java.lang.String,java.lang.String,java.lang.Throwable)>($stack7, "ERROR", l1)
+		return
+		l1 = "Failed tests :-("
+		l2 = new android.app.AlertDialog$Builder
+		$stack4 = l0.<eecs.mobilesecurity.StringEncryptorActor: androidx.appcompat.app.AppCompatActivity activity>
+		specialinvoke l2.<android.app.AlertDialog$Builder: void <init>(android.content.Context)>($stack4)
+		virtualinvoke l2.<android.app.AlertDialog$Builder: android.app.AlertDialog$Builder setMessage(java.lang.CharSequence)>(l1)
+		virtualinvoke l2.<android.app.AlertDialog$Builder: android.app.AlertDialog show()>()
+		goto
+	<eecs.mobilesecurity.StringEncryptorActor: void <init>(androidx.appcompat.app.AppCompatActivity)>
+		l0 := @this: eecs.mobilesecurity.StringEncryptorActor
+		l1 := @parameter0: androidx.appcompat.app.AppCompatActivity
+		specialinvoke l0.<java.lang.Object: void <init>()>()
+		l0.<eecs.mobilesecurity.StringEncryptorActor: androidx.appcompat.app.AppCompatActivity activity> = l1
+		return
+eecs.mobilesecurity.FileRewriteActor
+	<eecs.mobilesecurity.FileRewriteActor: void <init>(androidx.appcompat.app.AppCompatActivity,java.lang.String)>
+		l0 := @this: eecs.mobilesecurity.FileRewriteActor
+		l1 := @parameter0: androidx.appcompat.app.AppCompatActivity
+		l2 := @parameter1: java.lang.String
+		specialinvoke l0.<java.lang.Object: void <init>()>()
+		l0.<eecs.mobilesecurity.FileRewriteActor: androidx.appcompat.app.AppCompatActivity activity> = l1
+		l0.<eecs.mobilesecurity.FileRewriteActor: java.lang.String pw> = l2
+		return
+	<eecs.mobilesecurity.FileRewriteActor: void act()>
+		l0 := @this: eecs.mobilesecurity.FileRewriteActor
+		$stack5 = <android.os.Environment: java.lang.String DIRECTORY_DOWNLOADS>
+		l2 = staticinvoke <android.os.Environment: java.io.File getExternalStoragePublicDirectory(java.lang.String)>($stack5)
+		l1 = new java.io.File
+		l3 = new java.lang.StringBuilder
+		specialinvoke l3.<java.lang.StringBuilder: void <init>()>()
+		$stack6 = virtualinvoke l2.<java.io.File: java.lang.String getAbsolutePath()>()
+		$stack7 = virtualinvoke l3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack6)
+		$stack8 = virtualinvoke $stack7.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("/fieri.png")
+		$stack9 = virtualinvoke $stack8.<java.lang.StringBuilder: java.lang.String toString()>()
+		specialinvoke l1.<java.io.File: void <init>(java.lang.String)>($stack9)
+		l3 = new java.lang.StringBuilder
+		specialinvoke l3.<java.lang.StringBuilder: void <init>()>()
+		$stack10 = virtualinvoke l2.<java.io.File: java.lang.String getAbsolutePath()>()
+		$stack11 = virtualinvoke l3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack10)
+		$stack12 = virtualinvoke $stack11.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("/tmp.enc")
+		l3 = virtualinvoke $stack12.<java.lang.StringBuilder: java.lang.String toString()>()
+		l4 = new java.lang.StringBuilder
+		specialinvoke l4.<java.lang.StringBuilder: void <init>()>()
+		$stack13 = virtualinvoke l2.<java.io.File: java.lang.String getAbsolutePath()>()
+		$stack14 = virtualinvoke l4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack13)
+		$stack15 = virtualinvoke $stack14.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("/tmp.dec")
+		l2 = virtualinvoke $stack15.<java.lang.StringBuilder: java.lang.String toString()>()
+		$stack16 = l0.<eecs.mobilesecurity.FileRewriteActor: java.lang.String pw>
+		staticinvoke <eecs.mobilesecurity.FileUtil: void encryptFile(java.io.File,java.lang.String,java.lang.String)>(l1, $stack16, l3)
+		l1 = new java.io.File
+		specialinvoke l1.<java.io.File: void <init>(java.lang.String)>(l3)
+		$stack17 = l0.<eecs.mobilesecurity.FileRewriteActor: java.lang.String pw>
+		staticinvoke <eecs.mobilesecurity.FileUtil: void decryptFile(java.io.File,java.lang.String,java.lang.String)>(l1, $stack17, l2)
+		l1 = new android.app.AlertDialog$Builder
+		$stack18 = l0.<eecs.mobilesecurity.FileRewriteActor: androidx.appcompat.app.AppCompatActivity activity>
+		specialinvoke l1.<android.app.AlertDialog$Builder: void <init>(android.content.Context)>($stack18)
+		virtualinvoke l1.<android.app.AlertDialog$Builder: android.app.AlertDialog$Builder setMessage(java.lang.CharSequence)>("Re-encrypted file")
+		virtualinvoke l1.<android.app.AlertDialog$Builder: android.app.AlertDialog show()>()
+		goto
+		$stack19 := @caughtexception
+		l1 = $stack19
+		$stack20 = <eecs.mobilesecurity.MainActivity: java.lang.String TAG>
+		staticinvoke <android.util.Log: int e(java.lang.String,java.lang.String,java.lang.Throwable)>($stack20, "ERROR", l1)
+		return
+eecs.mobilesecurity.MainActivity
+	<eecs.mobilesecurity.MainActivity: void <clinit>()>
+		<eecs.mobilesecurity.MainActivity: java.lang.String TAG> = "StringCrypto"
+		return
+	<eecs.mobilesecurity.MainActivity: void addButtonProg()>
+		l0 := @this: eecs.mobilesecurity.MainActivity
+		$stack3 = <eecs.mobilesecurity.R$layout: int layout>
+		virtualinvoke l0.<eecs.mobilesecurity.MainActivity: void setContentView(int)>($stack3)
+		$stack4 = <eecs.mobilesecurity.R$id: int my_cool_layout>
+		$stack5 = virtualinvoke l0.<eecs.mobilesecurity.MainActivity: android.view.View findViewById(int)>($stack4)
+		l1 = (android.widget.LinearLayout) $stack5
+		$stack6 = new android.widget.Button
+		specialinvoke $stack6.<android.widget.Button: void <init>(android.content.Context)>(l0)
+		l2 = $stack6
+		$stack7 = new android.widget.LinearLayout$LayoutParams
+		specialinvoke $stack7.<android.widget.LinearLayout$LayoutParams: void <init>(int,int)>(-2, -2)
+		virtualinvoke l2.<android.widget.Button: void setLayoutParams(android.view.ViewGroup$LayoutParams)>($stack7)
+		virtualinvoke l2.<android.widget.Button: void setText(java.lang.CharSequence)>("Button")
+		virtualinvoke l2.<android.widget.Button: void setId(int)>(12345)
+		virtualinvoke l1.<android.widget.LinearLayout: void addView(android.view.View)>(l2)
+		return
+	<eecs.mobilesecurity.MainActivity: void onRequestPermissionsResult(int,java.lang.String[],int[])>
+		l0 := @this: eecs.mobilesecurity.MainActivity
+		l1 := @parameter0: int
+		l2 := @parameter1: java.lang.String[]
+		l3 := @parameter2: int[]
+		specialinvoke l0.<androidx.appcompat.app.AppCompatActivity: void onRequestPermissionsResult(int,java.lang.String[],int[])>(l1, l2, l3)
+		$stack4 = l0.<eecs.mobilesecurity.MainActivity: eecs.mobilesecurity.Actor actor>
+		interfaceinvoke $stack4.<eecs.mobilesecurity.Actor: void act()>()
+		return
+	<eecs.mobilesecurity.MainActivity: void <init>()>
+		l0 := @this: eecs.mobilesecurity.MainActivity
+		specialinvoke l0.<androidx.appcompat.app.AppCompatActivity: void <init>()>()
+		return
+	<eecs.mobilesecurity.MainActivity: void getPerm()>
+		l0 := @this: eecs.mobilesecurity.MainActivity
+		$stack1 = <eecs.mobilesecurity.MainActivity: java.lang.String TAG>
+		staticinvoke <android.util.Log: int i(java.lang.String,java.lang.String)>($stack1, "About to check permissions")
+		$stack2 = virtualinvoke l0.<eecs.mobilesecurity.MainActivity: int checkSelfPermission(java.lang.String)>("android.permission.WRITE_EXTERNAL_STORAGE")
+		if $stack2 != 0
+		$stack5 = virtualinvoke l0.<eecs.mobilesecurity.MainActivity: int checkSelfPermission(java.lang.String)>("android.permission.READ_EXTERNAL_STORAGE")
+		if $stack5 == 0
+		goto
+		$stack6 = <eecs.mobilesecurity.MainActivity: java.lang.String TAG>
+		staticinvoke <android.util.Log: int i(java.lang.String,java.lang.String)>($stack6, "Already have permissions!")
+		$stack7 = l0.<eecs.mobilesecurity.MainActivity: eecs.mobilesecurity.Actor actor>
+		interfaceinvoke $stack7.<eecs.mobilesecurity.Actor: void act()>()
+		goto
+		$stack3 = <eecs.mobilesecurity.MainActivity: java.lang.String TAG>
+		staticinvoke <android.util.Log: int i(java.lang.String,java.lang.String)>($stack3, "About to request permissions")
+		$stack4 = newarray (java.lang.String)[2]
+		$stack4[0] = "android.permission.WRITE_EXTERNAL_STORAGE"
+		$stack4[1] = "android.permission.READ_EXTERNAL_STORAGE"
+		staticinvoke <androidx.core.app.ActivityCompat: void requestPermissions(android.app.Activity,java.lang.String[],int)>(l0, $stack4, 0)
+		return
+	<eecs.mobilesecurity.MainActivity: void onCreate(android.os.Bundle)>
+		l0 := @this: eecs.mobilesecurity.MainActivity
+		l1 := @parameter0: android.os.Bundle
+		specialinvoke l0.<androidx.appcompat.app.AppCompatActivity: void onCreate(android.os.Bundle)>(l1)
+		$stack2 = new eecs.mobilesecurity.FileRewriteActor
+		specialinvoke $stack2.<eecs.mobilesecurity.FileRewriteActor: void <init>(androidx.appcompat.app.AppCompatActivity,java.lang.String)>(l0, "eecs700")
+		l0.<eecs.mobilesecurity.MainActivity: eecs.mobilesecurity.Actor actor> = $stack2
+		specialinvoke l0.<eecs.mobilesecurity.MainActivity: void getPerm()>()
+		return
+eecs.mobilesecurity.R$mipmap
+	<eecs.mobilesecurity.R$mipmap: void <init>()>
+		l0 := @this: eecs.mobilesecurity.R$mipmap
+		specialinvoke l0.<java.lang.Object: void <init>()>()
+		return
+eecs.mobilesecurity.R$drawable
+	<eecs.mobilesecurity.R$drawable: void <init>()>
+		l0 := @this: eecs.mobilesecurity.R$drawable
+		specialinvoke l0.<java.lang.Object: void <init>()>()
+		return
+eecs.mobilesecurity.FileEncryptActor
+	<eecs.mobilesecurity.FileEncryptActor: void <init>(androidx.appcompat.app.AppCompatActivity,java.lang.String)>
+		l0 := @this: eecs.mobilesecurity.FileEncryptActor
+		l1 := @parameter0: androidx.appcompat.app.AppCompatActivity
+		l2 := @parameter1: java.lang.String
+		specialinvoke l0.<java.lang.Object: void <init>()>()
+		l0.<eecs.mobilesecurity.FileEncryptActor: androidx.appcompat.app.AppCompatActivity activity> = l1
+		l0.<eecs.mobilesecurity.FileEncryptActor: java.lang.String pw> = l2
+		return
+	<eecs.mobilesecurity.FileEncryptActor: void act()>
+		l0 := @this: eecs.mobilesecurity.FileEncryptActor
+		$stack4 = <android.os.Environment: java.lang.String DIRECTORY_DOWNLOADS>
+		l3 = staticinvoke <android.os.Environment: java.io.File getExternalStoragePublicDirectory(java.lang.String)>($stack4)
+		l1 = new java.io.File
+		l2 = new java.lang.StringBuilder
+		specialinvoke l2.<java.lang.StringBuilder: void <init>()>()
+		$stack5 = virtualinvoke l3.<java.io.File: java.lang.String getAbsolutePath()>()
+		$stack6 = virtualinvoke l2.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack5)
+		$stack7 = virtualinvoke $stack6.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("/fieri.png")
+		$stack8 = virtualinvoke $stack7.<java.lang.StringBuilder: java.lang.String toString()>()
+		specialinvoke l1.<java.io.File: void <init>(java.lang.String)>($stack8)
+		$stack9 = l0.<eecs.mobilesecurity.FileEncryptActor: java.lang.String pw>
+		staticinvoke <eecs.mobilesecurity.FileUtil: void encryptFile(java.io.File,java.lang.String)>(l1, $stack9)
+		$stack10 = l0.<eecs.mobilesecurity.FileEncryptActor: java.lang.String pw>
+		staticinvoke <eecs.mobilesecurity.FileUtil: void decryptFile(java.io.File,java.lang.String)>(l1, $stack10)
+		l1 = new android.app.AlertDialog$Builder
+		$stack11 = l0.<eecs.mobilesecurity.FileEncryptActor: androidx.appcompat.app.AppCompatActivity activity>
+		specialinvoke l1.<android.app.AlertDialog$Builder: void <init>(android.content.Context)>($stack11)
+		virtualinvoke l1.<android.app.AlertDialog$Builder: android.app.AlertDialog$Builder setMessage(java.lang.CharSequence)>("Encrypted file")
+		virtualinvoke l1.<android.app.AlertDialog$Builder: android.app.AlertDialog show()>()
+		goto
+		$stack12 := @caughtexception
+		l1 = $stack12
+		$stack13 = <eecs.mobilesecurity.MainActivity: java.lang.String TAG>
+		staticinvoke <android.util.Log: int e(java.lang.String,java.lang.String,java.lang.Throwable)>($stack13, "ERROR", l1)
+		return
+eecs.mobilesecurity.R$color
+	<eecs.mobilesecurity.R$color: void <init>()>
+		l0 := @this: eecs.mobilesecurity.R$color
+		specialinvoke l0.<java.lang.Object: void <init>()>()
+		return
